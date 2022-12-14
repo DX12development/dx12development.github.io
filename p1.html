@@ -1,0 +1,36 @@
+<html>
+	<head>
+	<title>adventure for gold: home page</title>
+  	<link rel="icon" type="image/x-icon" href="favicon.ico">
+
+	<link rel="stylesheet" href="styles.css">
+	<a href="index.html" target="_self">
+
+   	<img src="home.png" style="float:left"></a>
+	<h2 style="color:white; font-size:400%; font-family:Franklin Gothic">web adventure</h2><br>
+
+<a href="homepage.html" target="_self">
+		 </a><br>
+
+
+	</head>
+
+	<body>
+
+		<div align=center>
+
+      <img src="page1.png" usemap="#gate">
+
+  <map name="gate">
+     <area shape="rect" coords="290,400,410,60" alt="bandit" href="javascript:;" onClick="document.getElementById('bandit').style.display='block';document.getElementById('choice1').style.display='block'">
+		 <area shape="rect" coords="150,330,230,70" alt="oldman" href="javascript:;" onClick="document.getElementById('oldman').style.display='block';">
+  </map>
+</div>
+<div id="bandit" align=center style="display:none;"><p>An intimidating looking person is standing in front of the town gate.</p>
+
+	</div>
+<div id="oldman" align=center style="display:none;"><p>An old man walks past the intimidating person.</p></div>
+<div id="choice1" align=center style="display:none;"><a href="p2.html" target="_self"><p><img src=select.png style=""> Approach intimmidating person</p></a>
+</div>
+</body>
+</html>

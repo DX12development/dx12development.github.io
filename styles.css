@@ -1,0 +1,61 @@
+<!DOCTYPE css>
+img.a {
+  vertical-align: text-bottom;}
+img {
+image-rendering: crisp-edges;
+image-rendering: -moz-crisp-edges;
+image-rendering: -o-crisp-edges;
+image-rendering: -webkit-optimize-contrast;
+-ms-interpolation-mode: nearest-neighbor;
+}
+.pixelated {
+  image-rendering: pixelated;
+}
+A {
+  text-decoration:none;
+}
+section {
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+article {
+  -webkit-flex: 3;
+  -ms-flex: 3;
+  flex: 3;
+  background-color: #f1f1f1;
+  padding: 10px;
+}
+footer {
+  padding: 10px;
+  text-align: center;
+  color: black;
+}
+h1 {
+ font-size:20px;
+  font-family:monospace courier;
+  color:yellow;
+}
+h2 {
+  text-shadow: 1px 1px 10px white,1px 5px 3px black;
+  color:white;
+  font-size:150%;
+  font-family:sans-sans-serif;
+}
+p {
+  line-height: 1.5;
+ font-family:courier;
+	font-size: 170%;
+	color: white;
+  text-shadow: 1px 1px 10px black, 1px 1px 1px white;
+}
+body{
+
+  background-image: url('checker.png');
+	background-size: cover;
+	background-position: center;
+}
+span{
+	color:gold;
+}
