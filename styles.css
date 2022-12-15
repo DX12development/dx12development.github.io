@@ -1,27 +1,4 @@
 <!DOCTYPE css>
-a:link {
-  color: white;
-  background-color: transparent;
-  text-decoration: none;
-}
-
-a:visited {
-  color: white;
-  background-color: transparent;
-  text-decoration: none;
-}
-a:hover {
-  color: white;
-  background-color: transparent;
-  text-decoration: underline;
-
-}
-
-a:active {
-  color: yellow;
-  background-color: transparent;
-  text-decoration: underline;
-}
 img {
 image-rendering: crisp-edges;
 image-rendering: -moz-crisp-edges;
@@ -35,7 +12,23 @@ img.a {
   image-rendering: pixelated;
 }
 A {
-  text-decoration:none;
+
+}
+A:link {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+A:visited {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
+A:hover {
+  color: blue;
+  background-color: transparent;
+  text-decoration: underline;
 }
 section {
   display: -webkit-flex;
@@ -50,6 +43,7 @@ section {
   float: left;
   text-align: center;
   padding: 0px 5px;
+  padding-left: 60px;
   padding-bottom: 30px;
   text-decoration: none;
   font-size: 17px;
