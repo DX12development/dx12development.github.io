@@ -78,7 +78,7 @@ p {
   text-shadow: 1px 1px 10px black, 1px 1px 1px white;
 }
 body{
-  background-image: url('checker.png');
+  background-color:black;
 	background-size: cover;
 	background-position: center;
 }
