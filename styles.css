@@ -20,12 +20,22 @@ section {
   -webkit-flex-direction: column;
   flex-direction: column;
 }
-article {
-  -webkit-flex: 3;
-  -ms-flex: 3;
-  flex: 3;
-  background-color: #f1f1f1;
-  padding: 10px;
+.topnav {
+  overflow: hidden;
+}
+.topnav a {
+  float: left;
+  text-align: center;
+  padding: 0px 16px;
+  padding-bottom: 30px;
+  text-decoration: none;
+  font-size: 17px;
+}
+.topnav a:hover {
+  color: white;
+}
+.topnav a.active {
+  color: white;
 }
 footer {
   padding: 10px;
