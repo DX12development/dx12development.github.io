@@ -29,6 +29,7 @@ A:hover {
   color: blue;
   background-color: transparent;
   text-decoration: underline;
+	font-weight: bold;
 }
 section {
   display: -webkit-flex;
