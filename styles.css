@@ -1,6 +1,27 @@
 <!DOCTYPE css>
-img.a {
-  vertical-align: text-bottom;}
+a:link {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:visited {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
+a:hover {
+  color: white;
+  background-color: transparent;
+  text-decoration: underline;
+
+}
+
+a:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
+}
 img {
 image-rendering: crisp-edges;
 image-rendering: -moz-crisp-edges;
@@ -8,6 +29,8 @@ image-rendering: -o-crisp-edges;
 image-rendering: -webkit-optimize-contrast;
 -ms-interpolation-mode: nearest-neighbor;
 }
+img.a {
+  vertical-align: text-bottom;}
 .pixelated {
   image-rendering: pixelated;
 }
@@ -26,13 +49,12 @@ section {
 .topnav a {
   float: left;
   text-align: center;
-  padding: 0px 16px;
+  padding: 0px 5px;
   padding-bottom: 30px;
   text-decoration: none;
   font-size: 17px;
 }
 .topnav a:hover {
-  color: white;
 }
 .topnav a.active {
   color: white;
@@ -45,7 +67,7 @@ footer {
 h1 {
  font-size:20px;
   font-family:monospace courier;
-  color:yellow;
+  text-shadow: 1px 1px white;
 }
 h2 {
   text-shadow: 1px 1px 10px white,1px 5px 3px black;
@@ -61,7 +83,6 @@ p {
   text-shadow: 1px 1px 10px black, 1px 1px 1px white;
 }
 body{
-
   background-image: url('checker.png');
 	background-size: cover;
 	background-position: center;
