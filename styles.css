@@ -87,7 +87,8 @@ span{
 }
 @media (max-width:900px) {
   .title {
-        width: 500px;
+        width: 94vh;
+        font-size: auto
     }
   .homebutton {
   display: none
