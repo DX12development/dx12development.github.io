@@ -85,3 +85,31 @@ body{
 span{
 	color:gold;
 }
+@media (max-width:900px) {
+  .title {
+        width: 500px;
+    }
+  .homebutton {
+  display: none
+
+  }
+}
+@media (min-width:901px) {
+  .title {
+        width: auto;
+    }
+  .mobilebutton {
+  display: none
+  }
+}
+.title {
+  font-size:10px;
+}
+
+.homebutton {
+  float:left;
+
+}
+.mobilebutton {
+float: left;
+}
