@@ -87,9 +87,9 @@ span{
 }
 @media (max-width:900px) {
   .title {
-        width: auto;
-        font-size: auto;
-        max-width: 20vh;
+        font-size: 1.5vw;
+        font-weight:bolder;
+
     }
   .homebutton {
   display: none
@@ -98,14 +98,12 @@ span{
 }
 @media (min-width:901px) {
   .title {
+      font-size:10px;
         width: auto;
     }
   .mobilebutton {
   display: none
   }
-}
-.title {
-  font-size:10px;
 }
 
 .homebutton {
