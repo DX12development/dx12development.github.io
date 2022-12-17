@@ -10,7 +10,7 @@
 	<img class="homebutton" src="home.png" ></a>
 </div>
 <div class="title"><pre style="color:white;  font-family:courier; text-shadow: 5px 5px blue;"><script src="randomtitle.js"></script></pre>
-</head></div>
+</div></head>
 <div class="topnav"><nav style = "font-family:courier; color:white";><h1>
 <a href="http://espcowdog.com/audio" target="_self">audio</a>
 <a href="http://espcowdog.com/visuals" target="_self">visuals</a>
@@ -18,32 +18,23 @@
 <a href="http://espcowdog.com/links" target="_self">links</a>
 </h1></nav></div>
 <body>
-
-<span style="padding-left:20px">this page is under construcntoni</span>
-<pre style="color:white; padding-left:50px; font-size 50%">                                      ████████████
-                            ████      ██░░░░░░░░░░████
-                          ██  ██      ██░░░░░░░░░░░░████
-                          ██  ██      ████████████░░░░██
-                          ██▒▒██      ██  ░░░░░░░░██░░░░██
-████                    ██████████    ██  ░░░░░░░░██░░░░██
-██  ████          ████████▒▒▒▒▒▒████████████████████░░░░██
-██    ██          ██    ██████████░░░░░░░░░░░░░░░░░░░░░░██
-  ██    ████████████          ░░░░░░░░░░░░░░░░░░░░░░░░░░██
-    ██    ████░░░░██      ██████████████████████████░░░░██
-      ██    ██░░░░██          ░░░░░░░░░░░░░░░░░░░░░░░░░░██
-      ██    ████████          ░░░░░░░░░░░░░░░░░░░░░░░░░░██
-      ██    ██    ████████████████████████████████████████
-      ██    ██        ██  ░░░░░░░░░░░░░░░░░░░░░░░░░░██
-      ██    ██        ██░░░░░░░░░░░░░░░░░░░░░░░░░░░░██
-      ██    ██    ██████████████████████████████████████
-          ██    ██▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████
-    ██    ██  ██▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██
-████  ▒▒████████▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒░░▓▓▓▓░░▓▓▓▓░░░░▓▓░░░░▓▓██
-██    ██      ██▒▒▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓██
-██  ██          ██▒▒▒▒▒▒▒▒▒▒▒▒▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓████
-████          ██████████████████████████████████████████████
-</pre>
-
+<span>
+  <form action="communications.php" method="post">
+    <ul>
+      <li>
+        <label for="name">name:</label>
+        <input type="text" id="name" name="user_name" />
+      </li>
+      <li>
+        <label for="msg">message:</label>
+        <textarea id="msg" name="user_message"></textarea>
+      </li><br>
+      <li class="button">
+        <button type="submit">send it off</button>
+      </li>
+    </ul>
+  </form>
+</span>
 
 </body>
 </html>
