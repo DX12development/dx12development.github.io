@@ -37,6 +37,9 @@ section {
   -webkit-flex-direction: column;
   flex-direction: column;
 }
+.mobilenav {
+  overflow: hidden;
+}
 .topnav {
   overflow: hidden;
 }
@@ -85,17 +88,6 @@ body{
 span{
 	color:gold;
 }
-@media (max-width:900px) {
-  .title {
-        font-size: 1.5vw;
-        font-weight:bolder;
-
-    }
-  .homebutton {
-  display: none
-
-  }
-}
 @media (min-width:901px) {
   .title {
       font-size:10px;
@@ -105,11 +97,30 @@ span{
   display: none
   }
 }
+.mobilenav {
+  display: none;
+}
 
 .homebutton {
   float:left;
-
 }
-.mobilebutton {
-float: left;
+@media (max-width:900px) {
+  .title {
+        font-size: 1.5vw;
+        font-weight:bolder;
+
+    }
+    .mobilenav {
+      display: flex;
+    }
+    .mobilebutton {
+    display: inline;
+    }
+  .homebutton {
+  display: none
+
+  }
+  .topnav {
+    display: none;
+  }
 }
