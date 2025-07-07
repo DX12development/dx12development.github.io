@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<!-- TO DO
+		colour switch
+		confirm Clear
+		retrieve uploaded images
+		save icon visual confirmation
+		
+		-->
+		<head>
+		<meta charset="UTF-8">
+		<title>Best Drawing</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<style>
+		html, body {
+		background-color: white;
+		margin: 0; padding: 0; height: 100%;
+		overflow: hidden;
+		}
+		body {
+		display: grid;
+		place-items: center;
+		}
+		button {
+		margin: 0 5px;
+		font-size: 1rem;
+		}
+		</style>
+		</head>
+<body>
+<canvas id="c" width="600" height="600" style="border: 1px solid black; width: 600px; height: 600px; image-rendering: pixelated; touch-action: none;"></canvas>
+	<div id="buttons" style="display: flex; justify-content: center; align-items: center;">
+	<img onclick="toggleEraser()" id="toolpic" src="https://files.reimage.dev/filesghs/a459809638ee/original" width="60" height="60">
+	<img onclick="toggleBrushSize()" id="brushsize" src="https://files.reimage.dev/filesghs/e291bce2b8ae/original" width="60" height="60">
+	<img onclick="upload()" src="https://files.reimage.dev/filesghs/ae4d320d50bb/original" width="60" height="60">
+	<img onclick="clearCanvas()" id="clearState" src="https://files.reimage.dev/filesghs/1ffb5bbb8772/original" width="60" height="60">
+</div>
+<img src="https://files.reimage.dev/filesghs/d293f3c9c999/original" width="60" height="60" onclick="alert('designed by dr. art, M.D. please try to produce as much anti corporate slop.')">
+</div>
+<script>
+const API_KEY = "9c66638c1adf8ae793f0237f52f2b26355de5045da146f606322f966925a3625";
+const canvas = document.getElementById("c");
+const ctx = canvas.getContext("2d");
+ctx.imageSmoothingEnabled = false;
+
+let drawing = false, x = 0, y = 0, lastX = 0, lastY = 0, lastTime = 0;
+let maxSize = 10;
+let currentBrushIndex = 0;
+let currentToolIndex = 0;
+let currentClearIndex = 0;
+let isEraser = false;
+
+
+//brush size pics
+const brushSources = [
+"https://files.reimage.dev/filesghs/e291bce2b8ae/original",  // large
+"https://files.reimage.dev/filesghs/f88f8323042b/original",  // medium
+"https://files.reimage.dev/filesghs/a5509d0a4c71/original",  // small
+"https://files.reimage.dev/filesghs/32535a74784d/original"   // x-large
+];
+
+//tool pics
+const toolSources = [
+"https://files.reimage.dev/filesghs/a459809638ee/original",  // pencil
+"https://files.reimage.dev/filesghs/f277250a14fb/original",  // eraser
+];
+
+//clear pics
+const clearSources = [
+"https://files.reimage.dev/filesghs/1ffb5bbb8772/original",  // clear!
+"https://files.reimage.dev/filesghs/7144fa6f69d2/original",  // you sure?
+];
+
+		
+	//clear canvas function
+		function clearCanvas() {
+		if (currentClearIndex === 1) {
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		currentClearIndex = 0;
+		document.getElementById('clearState').src = clearSources[0];
+		} else {
+		preClear(); 
+		}
+		}
+		//confirmation for clearing
+			function preClear() {
+			const clearElement = document.getElementById('clearState');
+			currentClearIndex = (currentClearIndex + 1) % clearSources.length;
+			clearElement.src = clearSources[currentClearIndex];
+			if (currentClearIndex === 1) {
+			setTimeout(() => {
+				currentClearIndex = 0;
+				clearElement.src = clearSources[0];
+			}, 2000);
+			}
+			}
+			
+		
+
+	// Function to toggle brush size between 6, 10, and 3
+		function toggleBrushSize() {
+		maxSize = (maxSize === 10) ? 6 :
+          (maxSize === 6) ? 3 :
+          (maxSize === 3) ? 20 : 10;
+		const brushElement = document.getElementById('brushsize');
+		currentBrushIndex = (currentBrushIndex + 1) % brushSources.length;
+		brushElement.src = brushSources[currentBrushIndex];
+		}
+
+	// Function to toggle between drawing and erasing mode
+		function toggleEraser() {
+		isEraser = !isEraser;
+		const toolElement = document.getElementById('toolpic');
+		currentToolIndex = (currentToolIndex + 1) % toolSources.length;
+		toolElement.src = toolSources[currentToolIndex];
+		}
+
+	// Function to calculate velocity-based brush size
+		function calculateBrushSize(newX, newY) {
+		const now = performance.now();
+		const deltaTime = now - lastTime;
+		const dx = newX - lastX;
+		const dy = newY - lastY;
+		const distance = Math.sqrt(dx * dx + dy * dy);
+		const speed = distance / (deltaTime || 1);
+
+		const minSize = 0;
+		const velocity = Math.min(speed, 100); // clamp max speed
+		const size = maxSize - (velocity / 2) * (maxSize - minSize);
+
+		lastX = newX;
+		lastY = newY;
+		lastTime = now;
+
+		return size;
+		}
+
+
+	// Upload the drawing
+		function upload() {
+		canvas.toBlob(async blob => {
+		const formData = new FormData();
+		formData.append("file", blob, "drawing.png");
+		formData.append("tags", JSON.stringify(["drawing"]));
+
+		try {
+		const res = await fetch("https://api.reimage.dev/upload/", {
+		  method: "POST",
+		  headers: { Authorization: `Bearer ${API_KEY}` },
+		  body: formData
+		  
+		});
+
+		const data = await res.json();
+		alert("success");
+		} catch (err) {
+		console.error("Upload failed.");
+		alert("Upload failed.");
+		}
+		}, "image/png");
+		}
+
+
+
+
+	// Drawing function
+	
+	function drawLine(newX, newY,) {
+	const size = calculateBrushSize(newX, newY,); 
+	ctx.lineWidth = size;
+	ctx.beginPath();
+	ctx.moveTo(x, y);
+	ctx.lineTo(newX, newY);
+	ctx.stroke();
+	ctx.lineCap = "square";
+	}
+
+		// Mouse events for drawing
+			canvas.onmousedown = e => {
+			drawing = true;
+			x = e.offsetX;
+			y = e.offsetY;
+			lastX = x;
+			lastY = y;
+			lastTime = performance.now();
+			};
+			canvas.onmouseup = () => { drawing = false; };
+			canvas.onmousemove = e => {
+			if (drawing) {
+				if (isEraser) {
+				ctx.clearRect(e.offsetX - maxSize / 2, e.offsetY - maxSize / 2, (maxSize*2), (maxSize*2));
+			} else {
+			drawLine(e.offsetX, e.offsetY);
+			}
+			x = e.offsetX;
+			y = e.offsetY;
+			}};
+
+		// Mobile touch events for drawing
+			canvas.addEventListener('touchstart', e => {
+			e.preventDefault();
+			const touch = e.touches[0];
+			const rect = canvas.getBoundingClientRect();
+			x = touch.clientX - rect.left;
+			y = touch.clientY - rect.top;
+			lastX = x;
+			lastY = y;
+			lastTime = performance.now();
+			drawing = true;
+			});
+			canvas.addEventListener('touchmove', e => {
+			if (!drawing) return;
+			e.preventDefault();
+			const touch = e.touches[0];
+			const rect = canvas.getBoundingClientRect();
+			const newX = touch.clientX - rect.left;
+			const newY = touch.clientY - rect.top;
+				if (isEraser) {
+				ctx.clearRect(newX - maxSize / 2, newY - maxSize / 2, (maxSize*2), (maxSize*2));
+			} else {
+			drawLine(newX, newY);
+			}
+			x = newX;
+			y = newY;
+			});
+			canvas.addEventListener('touchend', () => { drawing = false; });
+
+addEventListener("keydown", (event) => {
+    if (event.key === "c" || event.key === "C") {
+        clearCanvas();
+    }
+   if (event.key === "x" || event.key === "X") {
+        upload();
+    }
+    if (event.key === "z" || event.key === "Z") {
+        toggleBrushSize();
+    }
+	 if (event.key === "Shift" && event.location === 1) {
+        toggleEraser();
+    }
+	});
+    </script>
+  </body>
+</html>
