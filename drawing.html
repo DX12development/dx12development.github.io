@@ -30,6 +30,7 @@
 	<div id="buttons" style="display: flex; justify-content: center; align-items: center;">
 	<img onclick="undo()" id="dogState" src="https://files.reimage.dev/filesghs/1fe80cbebf47/original" width="60" height="60">
 	<img onclick="toggleBrushSize()" id="brushsize" src="https://files.reimage.dev/filesghs/e291bce2b8ae/original" width="60" height="60">
+	<img onclick="toggleColor()" id="colorswitch" src="https://files.reimage.dev/filesghs/59fe257f3694/original" width="60" height="60">
 	<img onclick="toggleEraser()" id="toolpic" src="https://files.reimage.dev/filesghs/a459809638ee/original" width="60" height="60">
 	<img onclick="upload()" id="savepic" src="https://files.reimage.dev/filesghs/ae4d320d50bb/original" width="60" height="60">
 	<img onclick="clearCanvas()" id="clearState" src="https://files.reimage.dev/filesghs/1ffb5bbb8772/original" width="60" height="60">
@@ -50,6 +51,7 @@ let currentToolIndex = 0;
 let currentClearIndex = 0;
 let currentDogIndex = 0;
 let currentSaveIndex = 0;
+let currentColorIndex = 0;
 let isEraser = false;
 
 
@@ -84,6 +86,26 @@ const saveSources = [
 "https://files.reimage.dev/filesghs/ae4d320d50bb/original",  //  save icon
 "https://files.reimage.dev/filesghs/b7f26beb6c54/original",  //  save successful
 ];
+
+//color pic
+const colorSources = [
+"https://files.reimage.dev/filesghs/59fe257f3694/original",  //  black
+"https://files.reimage.dev/filesghs/c7cba54f3f00/original",  //  gray
+];
+
+
+
+// color switch function
+let colors = ["black", "gray",];
+ctx.strokeStyle = colors[currentColorIndex];
+function toggleColor() {
+    currentColorIndex = (currentColorIndex + 1) % colors.length;
+    ctx.strokeStyle = colors[currentColorIndex];
+	
+	const colorElement = document.getElementById('colorswitch');
+		colorElement.src = colorSources[currentColorIndex];
+}
+
 
 	// Upload function
 		function upload() {
@@ -199,7 +221,7 @@ const saveSources = [
 		return size;
 		}
 
-
+//daVE nd maRGaux forever and ever
 
 	// Drawing function
 	
@@ -273,17 +295,14 @@ const saveSources = [
 			canvas.addEventListener('touchend', () => { drawing = false; });
 
 addEventListener("keydown", (event) => {
-    if (event.key === "b" || event.key === "B") {
-        clearCanvas();
-    }
    if (event.key === "v" || event.key === "V") {
-        upload();
+        toggleEraser();
     }
     if (event.key === "x" || event.key === "X") {
         toggleBrushSize();
     }
 	 if (event.key === "c" || event.key === "C") {
-        toggleEraser();
+        toggleColor();
     }
 	if (event.key === "z" || event.key === "Z") {
         undo();
