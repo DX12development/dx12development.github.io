@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <!-- TO DO
 		colour switch?
 		retrieve uploaded images
@@ -8,7 +9,7 @@
 		<head>
 		<meta charset="UTF-8">
 		<title>Best Drawing</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no maximum-scale=1.0">
 		<style>
 		html, body {
 		background-color: white;
@@ -23,21 +24,33 @@
 		margin: 0 5px;
 		font-size: 1rem;
 		}
+			#buttons {
+			border-top: 1px solid #ccc;
+			position: fixed;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			z-index: 999;
+			padding: 10px 0;
+			justify-content: space-around;
+			}
 		</style>
 		</head>
 <body>
-<canvas id="c" width="600" height="600" style="border: 1px solid black; width: 600px; height: 600px; image-rendering: pixelated; touch-action: none; cursor: crosshair;"></canvas>
+<canvas id="c" style="border: 1px solid black; image-rendering: pixelated; touch-action: none; cursor: crosshair;"></canvas>
 	<div id="buttons" style="display: flex; justify-content: center; align-items: center;">
-	<img onclick="undo()" id="dogState" src="https://files.reimage.dev/filesghs/1fe80cbebf47/original" width="60" height="60">
-	<img onclick="toggleBrushSize()" id="brushsize" src="https://files.reimage.dev/filesghs/e291bce2b8ae/original" width="60" height="60">
-	<img onclick="toggleColor()" id="colorswitch" src="https://files.reimage.dev/filesghs/59fe257f3694/original" width="60" height="60">
-	<img onclick="toggleEraser()" id="toolpic" src="https://files.reimage.dev/filesghs/a459809638ee/original" width="60" height="60">
-	<img onclick="upload()" id="savepic" src="https://files.reimage.dev/filesghs/ae4d320d50bb/original" width="60" height="60">
-	<img onclick="clearCanvas()" id="clearState" src="https://files.reimage.dev/filesghs/1ffb5bbb8772/original" width="60" height="60">
-</div>
-<img src="https://files.reimage.dev/filesghs/d293f3c9c999/original" width="60" height="60" onclick="alert('designed by dr. art, M.D. in toronto ontario. press Z-X-C-V-B on your keyboard to activate functions remotely')">
+	<img onclick="undo()" id="dogState" src="assets/undo.webp" width="60" height="60">
+	<img onclick="toggleBrushSize()" id="brushsize" src="assets/sizeL.webp" width="60" height="60">
+	<img onclick="toggleColor()" id="colorswitch" src="assets/colourBlack.webp" width="60" height="60">
+	<img onclick="toggleEraser()" id="toolpic" src="assets/drawing.webp" width="60" height="60">
+	<img onclick="upload()" id="savepic" src="assets/save.webp" width="60" height="60">
+	<img onclick="clearCanvas()" id="clearState" src="assets/clear.webp" width="60" height="60">
+	<img src="assets/i.webp" width="60" height="60" onclick="alert('by using this program you consent to all produced artworks and ideas becoming intellectual property of any and all of the following entities: BlackRock, Unilever, Meta, Amazon, and Quaker Oats')">
 </div>
 <script>
+window.addEventListener('load', resizeCanvasToDisplay);
+window.addEventListener('resize', resizeCanvasToDisplay);
+
 const API_KEY = "9c66638c1adf8ae793f0237f52f2b26355de5045da146f606322f966925a3625";
 const canvas = document.getElementById("c");
 const ctx = canvas.getContext("2d");
@@ -57,41 +70,67 @@ let isEraser = false;
 
 //brush size pics
 const brushSources = [
-"https://files.reimage.dev/filesghs/e291bce2b8ae/original",  // large
-"https://files.reimage.dev/filesghs/f88f8323042b/original",  // medium
-"https://files.reimage.dev/filesghs/a5509d0a4c71/original",  // small
-"https://files.reimage.dev/filesghs/32535a74784d/original"   // x-large
+"assets/sizeL.webp",  // large
+"assets/sizeM.webp",  // medium
+"assets/sizeS.webp",  // small
+"assets/sizeXL.webp"   // x-large
 ];
 
 //tool pics
 const toolSources = [
-"https://files.reimage.dev/filesghs/a459809638ee/original",  // pencil
-"https://files.reimage.dev/filesghs/f277250a14fb/original",  // eraser
+"assets/drawing.webp",  // pencil
+"assets/erasing.webp",  // eraser
 ];
 
 //clear pics
 const clearSources = [
-"https://files.reimage.dev/filesghs/1ffb5bbb8772/original",  // clear!
-"https://files.reimage.dev/filesghs/7144fa6f69d2/original",  // you sure?
+"assets/clear.webp",  // clear!
+"assets/clear2.webp",  // you sure?
 ];
 
 //dog pics
 const dogSources = [
-"https://files.reimage.dev/filesghs/1fe80cbebf47/original",  // rest dog
-"https://files.reimage.dev/filesghs/4c91ab000b44/original",  // barf dog
+"assets/undo.webp",  // rest dog
+"assets/undo2.webp",  // barf dog
 ];
 
 //save pics
 const saveSources = [
-"https://files.reimage.dev/filesghs/ae4d320d50bb/original",  //  save icon
-"https://files.reimage.dev/filesghs/b7f26beb6c54/original",  //  save successful
+"assets/save.webp",  //  save icon
+"assets/save2.webp",  //  save successful
 ];
 
 //color pic
 const colorSources = [
-"https://files.reimage.dev/filesghs/59fe257f3694/original",  //  black
-"https://files.reimage.dev/filesghs/c7cba54f3f00/original",  //  gray
+"assets/colourBlack.webp",  //  black
+"assets/colourGray.webp",  //  gray
 ];
+
+			function resizeCanvasToDisplay() {
+			const canvas = document.getElementById('c');
+			const ctx = canvas.getContext('2d');
+
+			// Get viewport size
+			const displayWidth = window.innerWidth;
+			const displayHeight = window.innerHeight;
+
+			// Set how much of the screen you want to use (optional)
+			const targetWidth = displayWidth;
+			const targetHeight = displayHeight;
+
+			// Set canvas pixel size (drawing surface)
+			canvas.width = targetWidth;
+			canvas.height = targetHeight;
+
+			// Set canvas display size (CSS)
+			canvas.style.width = targetWidth + 'px';
+			canvas.style.height = targetHeight + 'px';
+			}
+	
+
+
+
+
 
 
 
@@ -134,6 +173,9 @@ function toggleColor() {
 				currentSaveIndex = 0;
 				saveElement.src = saveSources[0];
 			}, 5000);}
+			undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+		if (undoStack.length > 10) undoStack.shift(); // optional limit
+			ctx.clearRect(0, 0, canvas.width, canvas.height);
 			}
 
 	//undo Function
