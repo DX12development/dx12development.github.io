@@ -230,7 +230,7 @@ const colorSources = [
 		const dx = newX - lastX;
 		const dy = newY - lastY;
 		const distance = Math.sqrt(dx * dx + dy * dy);
-		const speed = distance / (deltaTime * 2);
+		const speed = distance / (deltaTime || 1);
 
 		const minSize = 0;
 		const velocity = Math.min(speed, 100); // clamp max speed
