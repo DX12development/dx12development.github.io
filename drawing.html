@@ -69,7 +69,6 @@ let currentSaveIndex = 0;
 let currentColorIndex = 0;
 let isEraser = false;
 
-
 //brush size pics
 const brushSources = [
 "assets/sizeL.webp",  // large
@@ -108,44 +107,28 @@ const colorSources = [
 "assets/colourGray.webp",  //  gray
 ];
 
-			function resizeCanvasToDisplay() {
-			const canvas = document.getElementById('c');
-			const ctx = canvas.getContext('2d');
+	//canvas resize function
+		function resizeCanvasToDisplay() {
+		const canvas = document.getElementById('c');
+		const ctx = canvas.getContext('2d');
+		const displayWidth = window.innerWidth;
+		const displayHeight = window.innerHeight;
+		canvas.width = displayWidth;
+		canvas.height = displayHeight;
+		canvas.style.width = displayWidth + 'px';
+		canvas.style.height = displayHeight + 'px';
+		}
 
-			// Get viewport size
-			const displayWidth = window.innerWidth;
-			const displayHeight = window.innerHeight;
+	// color switch function
+		let colors = ["black", "gray",];
+		ctx.strokeStyle = colors[currentColorIndex];
+		function toggleColor() {
+		currentColorIndex = (currentColorIndex + 1) % colors.length;
+		ctx.strokeStyle = colors[currentColorIndex];
 
-			// Set how much of the screen you want to use (optional)
-			const targetWidth = displayWidth;
-			const targetHeight = displayHeight;
-
-			// Set canvas pixel size (drawing surface)
-			canvas.width = targetWidth;
-			canvas.height = targetHeight;
-
-			// Set canvas display size (CSS)
-			canvas.style.width = targetWidth + 'px';
-			canvas.style.height = targetHeight + 'px';
-			}
-	
-
-
-
-
-
-
-
-// color switch function
-let colors = ["black", "gray",];
-ctx.strokeStyle = colors[currentColorIndex];
-function toggleColor() {
-    currentColorIndex = (currentColorIndex + 1) % colors.length;
-    ctx.strokeStyle = colors[currentColorIndex];
-	
-	const colorElement = document.getElementById('colorswitch');
+		const colorElement = document.getElementById('colorswitch');
 		colorElement.src = colorSources[currentColorIndex];
-}
+		}
 
 
 	// Upload function
@@ -157,9 +140,9 @@ function toggleColor() {
 
 		try {
 		const res = await fetch("https://api.reimage.dev/upload/", {
-		  method: "POST",
-		  headers: { Authorization: `Bearer ${API_KEY}` },
-		  body: formData
+		method: "POST",
+		headers: { Authorization: `Bearer ${API_KEY}` },
+		body: formData
 		});
 		const data = await res.json();
 		} catch (err) {
@@ -167,18 +150,18 @@ function toggleColor() {
 		alert("Upload failed.");
 		}
 		}, "image/png");
-		 const saveElement = document.getElementById('savepic');
+		const saveElement = document.getElementById('savepic');
 		currentSaveIndex = (currentSaveIndex + 1) % saveSources.length;
 		saveElement.src = saveSources[currentSaveIndex];
 		if (currentSaveIndex === 1) {
-			setTimeout(() => {
-				currentSaveIndex = 0;
-				saveElement.src = saveSources[0];
-			}, 5000);}
-			undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+		setTimeout(() => {
+			currentSaveIndex = 0;
+			saveElement.src = saveSources[0];
+		}, 5000);}
+		undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
 		if (undoStack.length > 10) undoStack.shift(); // optional limit
-			ctx.clearRect(0, 0, canvas.width, canvas.height);
-			}
+		ctx.clearRect(0, 0, canvas.width, canvas.height);
+		}
 
 	//undo Function
 		function undo() {
@@ -190,17 +173,12 @@ function toggleColor() {
 		currentDogIndex = (currentDogIndex + 1) % dogSources.length;
 		dogElement.src = dogSources[currentDogIndex];
 		if (currentDogIndex === 1) {
-			setTimeout(() => {
-				currentDogIndex = 0;
-				dogElement.src = dogSources[0];
-			}, 175);
-			}
+		setTimeout(() => {
+		currentDogIndex = 0;
+		dogElement.src = dogSources[0];
+		}, 175);
 		}
-		
-		// UNDO LIMIT
-			if (undoStack.length > 3) {
-			undoStack.shift();
-			}
+		}
 		
 	//clear canvas function
 		function clearCanvas() {
@@ -215,7 +193,7 @@ function toggleColor() {
 		//confirmation for clearing
 			function preClear() {
 			undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-		if (undoStack.length > 10) undoStack.shift(); // optional limit
+			if (undoStack.length > 10) undoStack.shift();
 			const clearElement = document.getElementById('clearState');
 			currentClearIndex = (currentClearIndex + 1) % clearSources.length;
 			clearElement.src = clearSources[currentClearIndex];
@@ -252,7 +230,7 @@ function toggleColor() {
 		const dx = newX - lastX;
 		const dy = newY - lastY;
 		const distance = Math.sqrt(dx * dx + dy * dy);
-		const speed = distance / (deltaTime || 1);
+		const speed = distance / (deltaTime * 2);
 
 		const minSize = 0;
 		const velocity = Math.min(speed, 100); // clamp max speed
@@ -285,7 +263,7 @@ function toggleColor() {
 		
 			canvas.onmousedown = e => {
 			undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-			if (undoStack.length > 10) undoStack.shift(); // optional limit
+			if (undoStack.length > 10) undoStack.shift();
 			drawing = true;
 			x = e.offsetX;
 			y = e.offsetY;
@@ -311,7 +289,7 @@ function toggleColor() {
 			canvas.addEventListener('touchstart', e => {
 			e.preventDefault();
 			undoStack.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-			if (undoStack.length > 10) undoStack.shift(); // optional limit
+			if (undoStack.length > 10) undoStack.shift();
 			const touch = e.touches[0];
 			const rect = canvas.getBoundingClientRect();
 			x = touch.clientX - rect.left;
