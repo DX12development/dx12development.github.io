@@ -12,7 +12,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no maximum-scale=1.0">
 		<style>
 		html, body {
-		background-color: white;
+		background-color: #c9bbbb;
 		margin: 0; padding: 0; height: 100%;
 		overflow: hidden;
 		}
@@ -27,7 +27,7 @@
 		}
 			#buttons {
 			touch-action: manipulation;
-			border-top: 1px solid #ccc;
+			border-top: 1px solid;
 			position: fixed;
 			bottom: 0;
 			left: 0;
@@ -41,13 +41,14 @@
 <body>
 <canvas id="c" style="border: 1px solid black; image-rendering: pixelated; touch-action: none; cursor: crosshair;"></canvas>
 	<div id="buttons" style="display: flex; justify-content: center; align-items: center;">
-	<img onclick="undo()" id="dogState" src="assets/undo.webp" width="50" height="50">
-	<img onclick="toggleBrushSize()" id="brushsize" src="assets/sizeL.webp" width="50" height="50">
-	<img onclick="toggleColor()" id="colorswitch" src="assets/colourBlack.webp" width="50" height="50">
-	<img onclick="toggleEraser()" id="toolpic" src="assets/drawing.webp" width="50" height="50">
-	<img onclick="upload()" id="savepic" src="assets/save.webp" width="50" height="50">
-	<img onclick="clearCanvas()" id="clearState" src="assets/clear.webp" width="50" height="50">
-	<img src="assets/i.webp" width="50" height="50" onclick="alert('by using this program you consent to all produced artworks and ideas becoming intellectual property of any and all of the following entities: BlackRock, Lockheed Martin, Meta, Amazon, and Quaker Oats')">
+	<a href="https://espcowdog.com"><img src="assets/home.webp" width="45" height="45"></a>
+	<img onclick="undo()" id="dogState" src="assets/undo.webp" width="45" height="45">
+	<img onclick="toggleBrushSize()" id="brushsize" src="assets/sizeL.webp" width="45" height="45">
+	<img onclick="toggleColor()" id="colorswitch" src="assets/colourBlack.webp" width="45" height="45">
+	<img onclick="toggleEraser()" id="toolpic" src="assets/drawing.webp" width="45" height="45">
+	<img onclick="upload()" id="savepic" src="assets/save.webp" width="45" height="45">
+	<img onclick="clearCanvas()" id="clearState" src="assets/clear.webp" width="45" height="45">
+	<img src="assets/i.webp" width="45" height="45" onclick="alert('by using this program you consent to all produced artworks and ideas becoming intellectual property of any and all of the following entities: BlackRock, Unilever, Meta, Amazon, and Quaker Oats')">
 </div>
 <script>
 window.addEventListener('load', resizeCanvasToDisplay);
